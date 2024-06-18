@@ -11,7 +11,7 @@ jobs:
         name: CATCH2 Tests
         strategy:
             matrix:
-                os: [macos-latest]
+                os: [macos-latest-large]
         runs-on: ${{ matrix.os }}
         steps:
             - name: Checkout
