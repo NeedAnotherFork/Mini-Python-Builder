@@ -12,18 +12,22 @@ MKDIR_P := mkdir -p
 # make SRCDIR and INCLUDEDIR available to doxygen
 export SRCDIR := $(realpath ./src)
 export INCLUDEDIR := $(realpath ./include)
-DOXYFILE := $(realpath ./Doxyfile)
+export TESTDIR := $(realpath ./test)
+
+export C_FILES := $(wildcard ./src/*.c ./src/*/*.c* ./src/*/*/*.c*)
+export C_FILES := $(filter-out ./src/program.c, $(C_FILES))
+export DOXYFILE := $(realpath ./Doxyfile)
 
 # make DOCDIR available to doxygen
 export DOCDIR := $(abspath ./doc)
-BINDIR := $(abspath ./bin)
-OUTDIR := $(abspath ./out)
+export BINDIR := $(abspath ./bin)
+export OUTDIR := $(abspath ./out)
 
 #################
 # Default Flags #
 #################
 
-CFLAGS ?= -pedantic -Wall -Werror
+CFLAGS ?= -Wall -Werror -pedantic
 CFLAGS += -std=c11 -I$(INCLUDEDIR)
 CFLAGS += -ffile-prefix-map=$(SRCDIR)=.
 # make getline() (see man getline(3)) available
@@ -37,6 +41,12 @@ else
 # not for now CFLAGS += -DNDEBUG
 endif
 
+#################
+# Default g++ Flags #
+#################
+
+CXXFLAGS ?= -std=c++14
+
 ###########
 # Targets #
 ###########
@@ -48,7 +58,6 @@ SRC := $(wildcard $(SRCDIR)/*.c) $(wildcard $(SRCDIR)/*/*.c) $(wildcard $(SRCDIR
 
 OBJECT := $(patsubst $(SRCDIR)/%.c,$(OUTDIR)/%.o,$(SRC))
 DEPENDENCY := $(OBJECT:.o=.d)
-
 
 #########
 # Rules #
@@ -79,6 +88,7 @@ run: $(BIN)
 .PHONY: clean
 clean:
 	$(RM) -r $(BIN) $(OBJECT) $(DEPENDENCY) $(wildcard $(DOCDIR)/*)
+	$(RM) $(TESTDIR)/main
 
 .PHONY: doc
 doc:
@@ -88,3 +98,32 @@ doc:
 .PHONY: lint
 lint:
 	clang-tidy --checks=*,-bugprone-reserved-identifier,-cert-dcl37-c,-cert-dcl51-cpp,-altera-struct-pack-align $(SRC)
+
+.PHONY: test
+test:
+	d=$$(date +%s)\
+	; make -f $(TESTDIR)/Systemtests/makefile \
+	&& echo "Build took $$(($$(date +%s)-d)) seconds"
+
+
+.PHONY: test_clean
+test_clean:
+	make -f $(TESTDIR)/Systemtests/makefile clean
+
+.PHONY: test_echo
+test_echo:
+	make -f $(TESTDIR)/Systemtests/makefile echo
+
+.PHONY: test_run
+test_run:
+	make -f $(TESTDIR)/Systemtests/makefile run
+
+.PHONY: test_target
+test_target:
+	d=$$(date +%s)\
+	; 	make -f $(TESTDIR)/Systemtests/makefile test_greater_equal_op \
+	&& echo "Build took $$(($$(date +%s)-d)) seconds"
+
+.PHONY: run_target
+run_target:
+	./test/Systemtests/ComparisonOps/TestGreaterEqualOp.out
