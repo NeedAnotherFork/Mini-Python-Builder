@@ -176,29 +176,25 @@ public class TestFunctionParams {
                         List.of(new ReturnStatement(new StringLiteral(""))),
                         List.of(),
                         List.of(),
-                        List.of(new IntLiteral(133)),
-                        "\n"),
+                        List.of(new IntLiteral(133))),
                 Arguments.of(
                         "function1",
                         List.of(new ReturnStatement(new Reference("param1"))),
                         List.of(new Argument("param1", 0)),
                         List.of(),
-                        List.of(),
-                        "0\n"),
+                        List.of()),
                 Arguments.of(
                         "function1",
                         List.of(new ReturnStatement(new Reference("param1"))),
                         List.of(new Argument("param1", 0)),
                         List.of(),
-                        List.of(new StringLiteral("String1"), new StringLiteral("String2")),
-                        "String\n"),
+                        List.of(new StringLiteral("String1"), new StringLiteral("String2"))),
                 Arguments.of(
                         "function1",
                         List.of(new ReturnStatement(new Reference("param1"))),
                         List.of(new Argument("param1", 0)),
                         List.of(),
-                        List.of(new Call(new Reference("print"), List.of(new Expression[] {}))),
-                        "True\n"),
+                        List.of(new Call(new Reference("print"), List.of(new Expression[] {})))),
                 Arguments.of(
                         "function1",
                         List.of(
@@ -212,7 +208,6 @@ public class TestFunctionParams {
                                                         })))),
                         List.of(new Argument("param1", 0), new Argument("param2", 1)),
                         List.of(),
-                        List.of(new IntLiteral(1)),
-                        "3\n"));
+                        List.of(new IntLiteral(1))));
     }
 }

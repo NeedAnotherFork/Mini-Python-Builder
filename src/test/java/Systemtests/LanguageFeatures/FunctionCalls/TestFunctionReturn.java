@@ -176,8 +176,7 @@ public class TestFunctionReturn {
                         List.of(new ReturnStatement(new TupleLiteral(List.of()))),
                         List.of(),
                         List.of(),
-                        List.of(),
-                        ""),
+                        List.of()),
                 Arguments.of(
                         "function1",
                         List.of(
@@ -187,7 +186,6 @@ public class TestFunctionReturn {
                                                 List.of(new Expression[] {})))),
                         List.of(),
                         List.of(),
-                        List.of(),
-                        ""));
+                        List.of()));
     }
 }
