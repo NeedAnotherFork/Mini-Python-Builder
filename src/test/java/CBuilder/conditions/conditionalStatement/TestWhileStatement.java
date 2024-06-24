@@ -35,26 +35,20 @@ public class TestWhileStatement {
                                 new Call(
                                         new AttributeReference("__add__", new IntLiteral(1)),
                                         List.of(new Expression[] {new IntLiteral(3)}))),
-                        "while"
-                            + " (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(true),"
-                            + " \"__bool__\"), __mpy_obj_init_tuple(0), NULL))) {\n"
-                            + "\t__mpy_obj_ref_dec(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_int(1),"
-                            + " \"__add__\"), __mpy_tuple_assign(0, __mpy_obj_init_int(3),"
-                            + " __mpy_obj_init_tuple(1)), NULL));\n"
-                            + "}"),
+                        """
+                                while (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(true), "__bool__"), __mpy_obj_init_tuple(0), NULL))) {
+                                \t__mpy_obj_ref_dec(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_int(1), "__add__"), __mpy_tuple_assign(0, __mpy_obj_init_int(3), __mpy_obj_init_tuple(1)), NULL));
+                                }"""),
                 Arguments.of(
                         new BoolLiteral(false),
                         List.of(
                                 new Call(
                                         new AttributeReference("__add__", new IntLiteral(1)),
                                         List.of(new Expression[] {new IntLiteral(3)}))),
-                        "while"
-                            + " (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(false),"
-                            + " \"__bool__\"), __mpy_obj_init_tuple(0), NULL))) {\n"
-                            + "\t__mpy_obj_ref_dec(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_int(1),"
-                            + " \"__add__\"), __mpy_tuple_assign(0, __mpy_obj_init_int(3),"
-                            + " __mpy_obj_init_tuple(1)), NULL));\n"
-                            + "}"),
+                        """
+                                while (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(false), "__bool__"), __mpy_obj_init_tuple(0), NULL))) {
+                                \t__mpy_obj_ref_dec(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_int(1), "__add__"), __mpy_tuple_assign(0, __mpy_obj_init_int(3), __mpy_obj_init_tuple(1)), NULL));
+                                }"""),
                 Arguments.of(
                         new Call(
                                 new AttributeReference("__gt__", new Reference("a")),
@@ -69,19 +63,13 @@ public class TestWhileStatement {
                                                 new AttributeReference(
                                                         "__sub__", new Reference("a")),
                                                 List.of(new Expression[] {new IntLiteral(1)})))),
-                        "while"
-                            + " (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_call(__mpy_obj_get_attr(a,"
-                            + " \"__gt__\"), __mpy_tuple_assign(0, __mpy_obj_init_int(1),"
-                            + " __mpy_obj_init_tuple(1)), NULL), \"__bool__\"),"
-                            + " __mpy_obj_init_tuple(0), NULL))) {\n"
-                            + "\t__mpy_obj_ref_dec(__mpy_call(print, __mpy_tuple_assign(0, a,"
-                            + " __mpy_obj_init_tuple(1)), NULL));\n"
-                            + "\t__mpy_obj_ref_dec(a);\n"
-                            + "a = __mpy_call(__mpy_obj_get_attr(a, \"__sub__\"),"
-                            + " __mpy_tuple_assign(0, __mpy_obj_init_int(1),"
-                            + " __mpy_obj_init_tuple(1)), NULL);\n"
-                            + "__mpy_obj_ref_inc(a);\n"
-                            + "}"));
+                        """
+                                while (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_call(__mpy_obj_get_attr(a, "__gt__"), __mpy_tuple_assign(0, __mpy_obj_init_int(1), __mpy_obj_init_tuple(1)), NULL), "__bool__"), __mpy_obj_init_tuple(0), NULL))) {
+                                \t__mpy_obj_ref_dec(__mpy_call(print, __mpy_tuple_assign(0, a, __mpy_obj_init_tuple(1)), NULL));
+                                \t__mpy_obj_ref_dec(a);
+                                a = __mpy_call(__mpy_obj_get_attr(a, "__sub__"), __mpy_tuple_assign(0, __mpy_obj_init_int(1), __mpy_obj_init_tuple(1)), NULL);
+                                __mpy_obj_ref_inc(a);
+                                }"""));
     }
 
     @ParameterizedTest

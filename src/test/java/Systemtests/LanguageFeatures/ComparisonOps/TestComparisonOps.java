@@ -45,7 +45,7 @@ public class TestComparisonOps {
     void comparison_operation(
             String operation, Literal a, Literal b, String expected, @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_comparison_operation(workDirectory, operation, a, b);
 

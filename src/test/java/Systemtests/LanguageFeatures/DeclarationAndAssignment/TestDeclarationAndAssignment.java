@@ -41,7 +41,7 @@ public class TestDeclarationAndAssignment {
     @Test
     void declaration_and_assignment(@TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
         String expected =
                 """
                 133
@@ -68,7 +68,7 @@ public class TestDeclarationAndAssignment {
     @MethodSource("source_literals")
     void assignment_literal(Literal literal, String expected, @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_assignment_literal(workDirectory, literal);
 
@@ -87,7 +87,7 @@ public class TestDeclarationAndAssignment {
     @Test
     void assignment_reference(@TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
         String expected = "133\n";
 
         generate_assignment_reference(workDirectory);
@@ -107,7 +107,7 @@ public class TestDeclarationAndAssignment {
     @Test
     void assignment_function_call(@TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
         String expected = "133\n";
 
         generate_assignment_function_call(workDirectory);
@@ -126,7 +126,7 @@ public class TestDeclarationAndAssignment {
 
     @Test
     void assignment_function(@TempDir Path workDirectory) throws IOException, InterruptedException {
-        String result = "";
+        String result;
         String expected = "133\n";
 
         generate_assignment_function_call(workDirectory);
@@ -214,7 +214,7 @@ public class TestDeclarationAndAssignment {
      * <p>Mini Python source code :
      * <br> a = 133
      * <br> print(a) </p>
-     * @param output
+     * @param output writeProgram to here
      */
     static void generate_assignment_literal(Path output, Literal literal) {
         ProgramBuilder builder = new ProgramBuilder();
@@ -233,7 +233,7 @@ public class TestDeclarationAndAssignment {
      * <br> a = 133
      * <br> b = a
      * <br> print(b) </p>
-     * @param output
+     * @param output writeProgram to here
      */
     static void generate_assignment_reference(Path output) {
         ProgramBuilder builder = new ProgramBuilder();
@@ -259,7 +259,7 @@ public class TestDeclarationAndAssignment {
      * <br> b = printA
      * <br> b(a)</p>
      *
-     * @param output
+     * @param output writeProgram to here
      */
     static void generate_assignment_function_call(Path output) {
         ProgramBuilder builder = new ProgramBuilder();

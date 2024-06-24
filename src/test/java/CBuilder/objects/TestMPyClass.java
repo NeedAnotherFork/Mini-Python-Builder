@@ -86,8 +86,7 @@ public class TestMPyClass {
             String name,
             Reference parent,
             List<Function> functions,
-            Map<Reference, Expression> classAttributes,
-            String expected) {
+            Map<Reference, Expression> classAttributes) {
         MPyClass mpyC = new MPyClass(name, parent, functions, classAttributes);
 
         System.out.println(testClass + mpyC.buildStatement());
@@ -109,31 +108,29 @@ public class TestMPyClass {
                                             List.of())
                                 }),
                         new HashMap<>(),
-                        "__MPyObj *MyClass1;\n"
-                            + "__MPyObj* func_MyClass1___init__(__MPyObj *args, __MPyObj *kwargs)"
-                            + " {\n"
-                            + "\tassert(args != NULL && kwargs != NULL);\n"
-                            + "\t\n"
-                            + "\t__MPyGetArgsState argHelper = __mpy_args_init(\"__init__\", args,"
-                            + " kwargs, 1);\n"
-                            + "\t__MPyObj *self = __mpy_args_get_positional(&argHelper, 0,"
-                            + " \"self\");\n"
-                            + "\t__mpy_args_finish(&argHelper);\n"
-                            + "\t\n"
-                            + "\t__MPyObj *retValue = NULL;\n"
-                            + "\t\n"
-                            + "\t__mpy_obj_ref_dec(__mpy_call(__mpy_super, __mpy_tuple_assign(0,"
-                            + " self, __mpy_obj_init_tuple(1)), NULL));\n"
-                            + "\t\n"
-                            + "\t__mpy_obj_ref_dec(self);\n"
-                            + "\t\n"
-                            + "\tgoto ret;\n"
-                            + "\tret:\n"
-                            + "\tif (retValue == NULL) {\n"
-                            + "\t\tretValue = __mpy_obj_init_object();\n"
-                            + "\t}\n"
-                            + "\treturn __mpy_obj_return(retValue);\n"
-                            + "}\n"),
+                        """
+                                __MPyObj *MyClass1;
+                                __MPyObj* func_MyClass1___init__(__MPyObj *args, __MPyObj *kwargs) {
+                                \tassert(args != NULL && kwargs != NULL);
+                                \t
+                                \t__MPyGetArgsState argHelper = __mpy_args_init("__init__", args, kwargs, 1);
+                                \t__MPyObj *self = __mpy_args_get_positional(&argHelper, 0, "self");
+                                \t__mpy_args_finish(&argHelper);
+                                \t
+                                \t__MPyObj *retValue = NULL;
+                                \t
+                                \t__mpy_obj_ref_dec(__mpy_call(__mpy_super, __mpy_tuple_assign(0, self, __mpy_obj_init_tuple(1)), NULL));
+                                \t
+                                \t__mpy_obj_ref_dec(self);
+                                \t
+                                \tgoto ret;
+                                \tret:
+                                \tif (retValue == NULL) {
+                                \t\tretValue = __mpy_obj_init_object();
+                                \t}
+                                \treturn __mpy_obj_return(retValue);
+                                }
+                                """),
                 Arguments.of(
                         "MyClass2",
                         new Reference("MyClass1"),
@@ -146,31 +143,29 @@ public class TestMPyClass {
                                             List.of())
                                 }),
                         new HashMap<>(),
-                        "__MPyObj *MyClass2;\n"
-                            + "__MPyObj* func_MyClass2___init__(__MPyObj *args, __MPyObj *kwargs)"
-                            + " {\n"
-                            + "\tassert(args != NULL && kwargs != NULL);\n"
-                            + "\t\n"
-                            + "\t__MPyGetArgsState argHelper = __mpy_args_init(\"__init__\", args,"
-                            + " kwargs, 1);\n"
-                            + "\t__MPyObj *self = __mpy_args_get_positional(&argHelper, 0,"
-                            + " \"self\");\n"
-                            + "\t__mpy_args_finish(&argHelper);\n"
-                            + "\t\n"
-                            + "\t__MPyObj *retValue = NULL;\n"
-                            + "\t\n"
-                            + "\t__mpy_obj_ref_dec(__mpy_call(__mpy_super, __mpy_tuple_assign(0,"
-                            + " self, __mpy_obj_init_tuple(1)), NULL));\n"
-                            + "\t\n"
-                            + "\t__mpy_obj_ref_dec(self);\n"
-                            + "\t\n"
-                            + "\tgoto ret;\n"
-                            + "\tret:\n"
-                            + "\tif (retValue == NULL) {\n"
-                            + "\t\tretValue = __mpy_obj_init_object();\n"
-                            + "\t}\n"
-                            + "\treturn __mpy_obj_return(retValue);\n"
-                            + "}\n"));
+                        """
+                                __MPyObj *MyClass2;
+                                __MPyObj* func_MyClass2___init__(__MPyObj *args, __MPyObj *kwargs) {
+                                \tassert(args != NULL && kwargs != NULL);
+                                \t
+                                \t__MPyGetArgsState argHelper = __mpy_args_init("__init__", args, kwargs, 1);
+                                \t__MPyObj *self = __mpy_args_get_positional(&argHelper, 0, "self");
+                                \t__mpy_args_finish(&argHelper);
+                                \t
+                                \t__MPyObj *retValue = NULL;
+                                \t
+                                \t__mpy_obj_ref_dec(__mpy_call(__mpy_super, __mpy_tuple_assign(0, self, __mpy_obj_init_tuple(1)), NULL));
+                                \t
+                                \t__mpy_obj_ref_dec(self);
+                                \t
+                                \tgoto ret;
+                                \tret:
+                                \tif (retValue == NULL) {
+                                \t\tretValue = __mpy_obj_init_object();
+                                \t}
+                                \treturn __mpy_obj_return(retValue);
+                                }
+                                """));
     }
 
     private static Stream<Arguments> sources_build_initialisation() {
@@ -187,15 +182,17 @@ public class TestMPyClass {
                                             List.of())
                                 }),
                         new HashMap<>(),
-                        "MyClass1 = __mpy_obj_init_type(\"MyClass1\", __MPyType_Object);\n"
-                                + "__mpy_obj_ref_inc(MyClass1);\n"
-                                + "{\n"
-                                + "\t__MPyObj *__init__;\n"
-                                + "\t__init__ = __mpy_obj_init_func(&func_MyClass1___init__);\n"
-                                + "\t__mpy_obj_ref_inc(__init__);\n"
-                                + "\t__mpy_obj_set_attr(MyClass1, \"__init__\", __init__);\n"
-                                + "\t__mpy_obj_ref_dec(__init__);\n"
-                                + "}\n"),
+                        """
+                                MyClass1 = __mpy_obj_init_type("MyClass1", __MPyType_Object);
+                                __mpy_obj_ref_inc(MyClass1);
+                                {
+                                \t__MPyObj *__init__;
+                                \t__init__ = __mpy_obj_init_func(&func_MyClass1___init__);
+                                \t__mpy_obj_ref_inc(__init__);
+                                \t__mpy_obj_set_attr(MyClass1, "__init__", __init__);
+                                \t__mpy_obj_ref_dec(__init__);
+                                }
+                                """),
                 Arguments.of(
                         "MyClass2",
                         new Reference("MyClass1"),
@@ -208,15 +205,17 @@ public class TestMPyClass {
                                             List.of())
                                 }),
                         new HashMap<>(),
-                        "MyClass2 = __mpy_obj_init_type(\"MyClass2\", MyClass1);\n"
-                                + "__mpy_obj_ref_inc(MyClass2);\n"
-                                + "{\n"
-                                + "\t__MPyObj *__init__;\n"
-                                + "\t__init__ = __mpy_obj_init_func(&func_MyClass2___init__);\n"
-                                + "\t__mpy_obj_ref_inc(__init__);\n"
-                                + "\t__mpy_obj_set_attr(MyClass2, \"__init__\", __init__);\n"
-                                + "\t__mpy_obj_ref_dec(__init__);\n"
-                                + "}\n"));
+                        """
+                                MyClass2 = __mpy_obj_init_type("MyClass2", MyClass1);
+                                __mpy_obj_ref_inc(MyClass2);
+                                {
+                                \t__MPyObj *__init__;
+                                \t__init__ = __mpy_obj_init_func(&func_MyClass2___init__);
+                                \t__mpy_obj_ref_inc(__init__);
+                                \t__mpy_obj_set_attr(MyClass2, "__init__", __init__);
+                                \t__mpy_obj_ref_dec(__init__);
+                                }
+                                """));
     }
 
     private static Stream<Arguments> sources_build_refdec() {

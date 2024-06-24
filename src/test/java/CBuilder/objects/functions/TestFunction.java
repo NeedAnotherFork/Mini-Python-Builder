@@ -120,37 +120,34 @@ public class TestFunction {
                         List.of(
                                 new VariableDeclaration("local1"),
                                 new VariableDeclaration("local2")),
-                        "__MPyObj* func_funcName1(__MPyObj *args, __MPyObj *kwargs) {\n"
-                            + "\tassert(args != NULL && kwargs != NULL);\n"
-                            + "\t\n"
-                            + "\t__MPyGetArgsState argHelper = __mpy_args_init(\"funcName1\", args,"
-                            + " kwargs, 2);\n"
-                            + "\t__MPyObj *argName1 = __mpy_args_get_positional(&argHelper, 0,"
-                            + " \"argName1\");\n"
-                            + "\t__MPyObj *argName2 = __mpy_args_get_positional(&argHelper, 1,"
-                            + " \"argName2\");\n"
-                            + "\t__mpy_args_finish(&argHelper);\n"
-                            + "\t\n"
-                            + "\t__MPyObj *retValue = NULL;\n"
-                            + "\t\n"
-                            + "\t__MPyObj *local1 = __mpy_obj_init_object();\n"
-                            + "\t__mpy_obj_ref_inc(local1);\n"
-                            + "\t__MPyObj *local2 = __mpy_obj_init_object();\n"
-                            + "\t__mpy_obj_ref_inc(local2);\n"
-                            + "\t__mpy_obj_ref_dec(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_int(1),"
-                            + " \"__add__\"), __mpy_tuple_assign(0, __mpy_obj_init_int(3),"
-                            + " __mpy_obj_init_tuple(1)), NULL));\n"
-                            + "\t\n"
-                            + "\t__mpy_obj_ref_dec(argName1);\n"
-                            + "\t__mpy_obj_ref_dec(argName2);\n"
-                            + "\t\n"
-                            + "\tgoto ret;\n"
-                            + "\tret:\n"
-                            + "\tif (retValue == NULL) {\n"
-                            + "\t\tretValue = __mpy_obj_init_object();\n"
-                            + "\t}\n"
-                            + "\treturn __mpy_obj_return(retValue);\n"
-                            + "}\n"));
+                        """
+                                __MPyObj* func_funcName1(__MPyObj *args, __MPyObj *kwargs) {
+                                \tassert(args != NULL && kwargs != NULL);
+                                \t
+                                \t__MPyGetArgsState argHelper = __mpy_args_init("funcName1", args, kwargs, 2);
+                                \t__MPyObj *argName1 = __mpy_args_get_positional(&argHelper, 0, "argName1");
+                                \t__MPyObj *argName2 = __mpy_args_get_positional(&argHelper, 1, "argName2");
+                                \t__mpy_args_finish(&argHelper);
+                                \t
+                                \t__MPyObj *retValue = NULL;
+                                \t
+                                \t__MPyObj *local1 = __mpy_obj_init_object();
+                                \t__mpy_obj_ref_inc(local1);
+                                \t__MPyObj *local2 = __mpy_obj_init_object();
+                                \t__mpy_obj_ref_inc(local2);
+                                \t__mpy_obj_ref_dec(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_int(1), "__add__"), __mpy_tuple_assign(0, __mpy_obj_init_int(3), __mpy_obj_init_tuple(1)), NULL));
+                                \t
+                                \t__mpy_obj_ref_dec(argName1);
+                                \t__mpy_obj_ref_dec(argName2);
+                                \t
+                                \tgoto ret;
+                                \tret:
+                                \tif (retValue == NULL) {
+                                \t\tretValue = __mpy_obj_init_object();
+                                \t}
+                                \treturn __mpy_obj_return(retValue);
+                                }
+                                """));
     }
 
     private static Stream<Arguments> sources_build_func_object_declaration() {
@@ -180,8 +177,10 @@ public class TestFunction {
                         List.of(
                                 new VariableDeclaration("local1"),
                                 new VariableDeclaration("local2")),
-                        "funcName1 = __mpy_obj_init_func(&func_funcName1);\n"
-                                + "__mpy_obj_ref_inc(funcName1);\n"));
+                        """
+                                funcName1 = __mpy_obj_init_func(&func_funcName1);
+                                __mpy_obj_ref_inc(funcName1);
+                                """));
     }
 
     private static Stream<Arguments> sources_build_refdec() {

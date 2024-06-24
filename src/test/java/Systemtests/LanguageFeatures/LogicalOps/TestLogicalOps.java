@@ -50,7 +50,7 @@ public class TestLogicalOps {
     @MethodSource("sources")
     void logical_operation(Expression operation, String expected, @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_logical_operation(workDirectory, operation);
 
@@ -67,9 +67,9 @@ public class TestLogicalOps {
     /**
      * <p>Mini Python source code :
      * <br> print(a &&, ||, not b) </p>
-     * @param output
+     * @param output writeProgram to here
      *
-     * @param operation
+     * @param operation logical operation to test for
      */
     void generate_logical_operation(Path output, Expression operation) {
         ProgramBuilder builder = new ProgramBuilder();

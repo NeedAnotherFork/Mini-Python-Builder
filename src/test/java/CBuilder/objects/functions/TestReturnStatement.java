@@ -18,13 +18,23 @@ public class TestReturnStatement {
     private static Stream<Arguments> sources() {
         return Stream.of(
                 Arguments.of(
-                        new IntLiteral(34), "retValue = __mpy_obj_init_int(34);\n" + "goto ret;\n"),
+                        new IntLiteral(34),
+                        """
+                                retValue = __mpy_obj_init_int(34);
+                                goto ret;
+                                """),
                 Arguments.of(
                         new BoolLiteral(true),
-                        "retValue = __mpy_obj_init_boolean(true);\n" + "goto ret;\n"),
+                        """
+                                retValue = __mpy_obj_init_boolean(true);
+                                goto ret;
+                                """),
                 Arguments.of(
                         new StringLiteral("34"),
-                        "retValue = __mpy_obj_init_str_static(\"34\");\n" + "goto ret;\n"));
+                        """
+                                retValue = __mpy_obj_init_str_static("34");
+                                goto ret;
+                                """));
     }
 
     @ParameterizedTest

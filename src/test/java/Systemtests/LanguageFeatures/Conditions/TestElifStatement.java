@@ -89,7 +89,7 @@ public class TestElifStatement {
             String expected,
             @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_elif_statement(workDirectory, ifStatement, elifStatement);
 

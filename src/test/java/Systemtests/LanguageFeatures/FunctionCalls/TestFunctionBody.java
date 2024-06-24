@@ -152,7 +152,7 @@ public class TestFunctionBody {
             String expected,
             @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_function(workDirectory, funcName, body, positionalArgs, localVariables, args);
 

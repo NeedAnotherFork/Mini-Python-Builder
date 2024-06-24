@@ -54,7 +54,7 @@ public class TestWhileStatement {
             String expected,
             @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_while_statement(workDirectory, condition, statementList);
 

@@ -22,7 +22,7 @@ public class TestDifferentialExamplePrint {
 
     @Test
     void call_print(@TempDir Path workDirectory) throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_call_print(workDirectory);
 
@@ -40,7 +40,7 @@ public class TestDifferentialExamplePrint {
 
         Process p = builder.start();
 
-        String python3Output = "";
+        StringBuilder python3Output = new StringBuilder();
         String line; // https://github.com/actions/runner-images
 
         InputStream processStdOutput = p.getInputStream();
@@ -48,7 +48,7 @@ public class TestDifferentialExamplePrint {
         BufferedReader br = new BufferedReader(r);
 
         while ((line = br.readLine()) != null) {
-            python3Output += line + "\n";
+            python3Output.append(line).append("\n");
         }
 
         if (p.waitFor() != 0) {
@@ -59,7 +59,7 @@ public class TestDifferentialExamplePrint {
         System.out.println(python3Output);
 
         // Thread.sleep(5000);
-        assertEquals(python3Output, result);
+        assertEquals(python3Output.toString(), result);
 
         // After Test
     }

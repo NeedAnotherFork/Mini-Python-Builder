@@ -85,7 +85,7 @@ public class TestElseStatement {
             String expected,
             @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_else_statement(workDirectory, ifStatement, elseStatement);
 

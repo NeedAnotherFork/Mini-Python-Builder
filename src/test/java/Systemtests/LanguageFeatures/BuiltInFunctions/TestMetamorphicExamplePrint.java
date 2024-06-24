@@ -25,7 +25,7 @@ public class TestMetamorphicExamplePrint {
 
     @Test
     void call_print(@TempDir Path workDirectory) throws IOException, InterruptedException {
-        String result = "";
+        String result;
         String expected = "133\n";
 
         generate_call_print(workDirectory);
@@ -45,7 +45,7 @@ public class TestMetamorphicExamplePrint {
     @Test
     void print_through_function(@TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
         String expected = "133\n";
 
         generate_print_through_function(workDirectory);

@@ -25,18 +25,20 @@ import org.junit.jupiter.api.io.TempDir;
 public class TestLanguageFeaturesCombined {
     @Test
     void program(@TempDir Path workDirectory) throws IOException, InterruptedException {
-        String result = "";
+        String result;
         String expected =
-                "62\n"
-                        + "62\n"
-                        + "-30\n"
-                        + "-30\n"
-                        + "-50\n"
-                        + "62\n"
-                        + "<object object 381\n"
-                        + "100\n"
-                        + "<object object 494\n"
-                        + "100\n";
+                """
+                        62
+                        62
+                        -30
+                        -30
+                        -50
+                        62
+                        <object object 381
+                        100
+                        <object object 494
+                        100
+                        """;
 
         generateProgram(workDirectory);
 

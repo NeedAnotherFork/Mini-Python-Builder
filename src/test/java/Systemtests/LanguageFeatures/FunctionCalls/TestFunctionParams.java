@@ -42,7 +42,7 @@ public class TestFunctionParams {
             String expected,
             @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_function(workDirectory, funcName, body, positionalArgs, localVariables, args);
 
@@ -64,7 +64,6 @@ public class TestFunctionParams {
             List<Argument> positionalArgs,
             List<VariableDeclaration> localVariables,
             List<Expression> args,
-            String expected,
             @TempDir Path workDirectory)
             throws IOException, InterruptedException {
         String result = "";

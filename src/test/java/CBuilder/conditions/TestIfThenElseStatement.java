@@ -23,21 +23,19 @@ public class TestIfThenElseStatement {
                         new IfStatement(new BoolLiteral(true), List.of()),
                         Optional.of(List.of(new ElifStatement(new BoolLiteral(true), List.of()))),
                         Optional.of(new ElseStatement(List.of())),
-                        "if (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(true),"
-                            + " \"__bool__\"), __mpy_obj_init_tuple(0), NULL))) {\n"
-                            + "}else if"
-                            + " (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(true),"
-                            + " \"__bool__\"), __mpy_obj_init_tuple(0), NULL))) {\n"
-                            + "}else {\n"
-                            + "}"),
+                        """
+                                if (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(true), "__bool__"), __mpy_obj_init_tuple(0), NULL))) {
+                                }else if (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(true), "__bool__"), __mpy_obj_init_tuple(0), NULL))) {
+                                }else {
+                                }"""),
                 Arguments.of(
                         new IfStatement(new BoolLiteral(true), List.of()),
                         Optional.empty(),
                         Optional.of(new ElseStatement(List.of())),
-                        "if (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(true),"
-                            + " \"__bool__\"), __mpy_obj_init_tuple(0), NULL))) {\n"
-                            + "}else {\n"
-                            + "}"),
+                        """
+                                if (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(true), "__bool__"), __mpy_obj_init_tuple(0), NULL))) {
+                                }else {
+                                }"""),
                 Arguments.of(
                         new IfStatement(new BoolLiteral(true), List.of()),
                         Optional.empty(),

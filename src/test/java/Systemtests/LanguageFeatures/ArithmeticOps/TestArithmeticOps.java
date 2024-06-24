@@ -44,7 +44,7 @@ public class TestArithmeticOps {
     void arithmetic_operation(
             String operation, Integer a, Integer b, String expected, @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_arithmetic_operation(workDirectory, operation, a, b);
 
@@ -61,8 +61,8 @@ public class TestArithmeticOps {
     /**
      * <p>Mini Python source code :
      * <br> print(a (+,-,*,/) b) </p>
-     * @param a
-     * @param b
+     * @param a Summand
+     * @param b Summand
      */
     void generate_arithmetic_operation(Path output, String operation, Integer a, Integer b) {
         ProgramBuilder builder = new ProgramBuilder();

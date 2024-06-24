@@ -40,7 +40,7 @@ public class TestCastStr {
     @MethodSource("sources")
     void cast_str(Literal value, String expected, @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_cast_str(workDirectory, value);
 

@@ -31,7 +31,7 @@ public class TestCastInt {
     @MethodSource("sources_equals")
     void cast_int_equals(Literal value, String expected, @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_cast_int(workDirectory, value);
 

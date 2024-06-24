@@ -28,7 +28,7 @@ public class TestClassMembers {
 
     @Test
     void getter_setter(@TempDir Path workDirectory) throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_getter_and_setter(
                 workDirectory,
@@ -136,7 +136,7 @@ public class TestClassMembers {
 
     @Test
     void getter(@TempDir Path workDirectory) throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_getter(
                 workDirectory,

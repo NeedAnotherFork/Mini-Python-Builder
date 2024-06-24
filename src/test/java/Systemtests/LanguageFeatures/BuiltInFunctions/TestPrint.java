@@ -41,7 +41,7 @@ public class TestPrint {
     @MethodSource("sources")
     void print(Expression toPrint, String expected, @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_print(workDirectory, toPrint);
 

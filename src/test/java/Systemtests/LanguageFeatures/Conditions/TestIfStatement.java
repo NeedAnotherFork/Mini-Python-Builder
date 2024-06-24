@@ -80,7 +80,7 @@ public class TestIfStatement {
             String expected,
             @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_if_statement(workDirectory, condition, statementList);
 

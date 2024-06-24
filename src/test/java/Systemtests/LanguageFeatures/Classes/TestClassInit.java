@@ -116,7 +116,7 @@ public class TestClassInit {
             String expected,
             @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_class(workDirectory, className, parent, functions, classAttributes, initArgs);
 

@@ -47,7 +47,7 @@ public class TestType {
     @MethodSource("sources")
     void type(Literal value, String expected, @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_type(workDirectory, value);
 

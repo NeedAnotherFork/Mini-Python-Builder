@@ -37,24 +37,20 @@ public class TestIfStatement {
                                 new Call(
                                         new AttributeReference("__add__", new IntLiteral(1)),
                                         List.of(new Expression[] {new IntLiteral(3)}))),
-                        "if (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(true),"
-                            + " \"__bool__\"), __mpy_obj_init_tuple(0), NULL))) {\n"
-                            + "\t__mpy_obj_ref_dec(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_int(1),"
-                            + " \"__add__\"), __mpy_tuple_assign(0, __mpy_obj_init_int(3),"
-                            + " __mpy_obj_init_tuple(1)), NULL));\n"
-                            + "}"),
+                        """
+                                if (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(true), "__bool__"), __mpy_obj_init_tuple(0), NULL))) {
+                                \t__mpy_obj_ref_dec(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_int(1), "__add__"), __mpy_tuple_assign(0, __mpy_obj_init_int(3), __mpy_obj_init_tuple(1)), NULL));
+                                }"""),
                 Arguments.of(
                         new BoolLiteral(false),
                         List.of(
                                 new Call(
                                         new AttributeReference("__add__", new IntLiteral(1)),
                                         List.of(new Expression[] {new IntLiteral(3)}))),
-                        "if (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(false),"
-                            + " \"__bool__\"), __mpy_obj_init_tuple(0), NULL))) {\n"
-                            + "\t__mpy_obj_ref_dec(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_int(1),"
-                            + " \"__add__\"), __mpy_tuple_assign(0, __mpy_obj_init_int(3),"
-                            + " __mpy_obj_init_tuple(1)), NULL));\n"
-                            + "}"));
+                        """
+                                if (__mpy_boolean_raw(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_boolean(false), "__bool__"), __mpy_obj_init_tuple(0), NULL))) {
+                                \t__mpy_obj_ref_dec(__mpy_call(__mpy_obj_get_attr(__mpy_obj_init_int(1), "__add__"), __mpy_tuple_assign(0, __mpy_obj_init_int(3), __mpy_obj_init_tuple(1)), NULL));
+                                }"""));
     }
 
     @ParameterizedTest

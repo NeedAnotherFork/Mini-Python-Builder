@@ -43,7 +43,7 @@ public class TestId {
     @MethodSource("sources")
     void id(Expression toId, String expected, @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_id(workDirectory, toId);
 

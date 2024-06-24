@@ -31,7 +31,7 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
 	testLogging {
 		// set options for log level LIFECYCLE
 		events TestLogEvent.FAILED,

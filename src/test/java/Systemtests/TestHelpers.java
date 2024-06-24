@@ -9,7 +9,7 @@ public class TestHelpers {
     public static String getProgramOutput(Path workDirectory)
             throws IOException, InterruptedException {
         String line;
-        String result = "";
+        StringBuilder result = new StringBuilder();
         ProcessBuilder runner = new ProcessBuilder("./bin/program");
         runner.directory(workDirectory.toFile());
         // runner.inheritIO(); //You can not redirect the stdout/stderr because the Reader will not
@@ -21,7 +21,7 @@ public class TestHelpers {
         BufferedReader br = new BufferedReader(r);
 
         while ((line = br.readLine()) != null) {
-            result += line + "\n";
+            result.append(line).append("\n");
         }
 
         // String result = new String(rp.getInputStream().readAllBytes());
@@ -29,7 +29,7 @@ public class TestHelpers {
         if (rp.waitFor() != 0) {
             throw new RuntimeException("Program returned with value != 0");
         }
-        return result;
+        return result.toString();
     }
 
     public static String getProgramOutputBasedOnInput(
@@ -52,9 +52,11 @@ public class TestHelpers {
         Reader r = new InputStreamReader(processStdOutput);
         BufferedReader br = new BufferedReader(r);
 
+        StringBuilder resultBuilder = new StringBuilder(result);
         while ((line = br.readLine()) != null) {
-            result += line + "\n";
+            resultBuilder.append(line).append("\n");
         }
+        result = resultBuilder.toString();
 
         // String result = new String(rp.getInputStream().readAllBytes());
 

@@ -72,14 +72,17 @@ public class TestClassInheritance {
                                                 List.of(new Argument("self", 0)),
                                                 List.of())),
                                 Map.of()),
-                        "[ClassA] Print from __init__\n" + "[ClassB] Print from __init__\n"));
+                        """
+                                [ClassA] Print from __init__
+                                [ClassB] Print from __init__
+                                """));
     }
 
     @ParameterizedTest
     @MethodSource("sources_equals")
     void inheritance(MPyClass A, MPyClass B, String expected, @TempDir Path workDirectory)
             throws IOException, InterruptedException {
-        String result = "";
+        String result;
 
         generate_inheritance(workDirectory, A, B);
 
