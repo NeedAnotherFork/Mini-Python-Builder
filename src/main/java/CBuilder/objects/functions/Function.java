@@ -1,9 +1,9 @@
+/* (C)2024 */
 package CBuilder.objects.functions;
 
 import CBuilder.Reference;
 import CBuilder.Statement;
 import CBuilder.variables.VariableDeclaration;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +23,6 @@ public class Function extends Reference {
 
     private final List<VariableDeclaration> localVariables;
 
-
     /**
      * Create a new function (or method).
      *
@@ -39,7 +38,11 @@ public class Function extends Reference {
      * @param positionalArgs The arguments of the function.
      * @param localVariables Variables declared inside the function.
      */
-    public Function(String funcName, List<Statement> body, List<Argument> positionalArgs, List<VariableDeclaration> localVariables) {
+    public Function(
+            String funcName,
+            List<Statement> body,
+            List<Argument> positionalArgs,
+            List<VariableDeclaration> localVariables) {
         super(funcName);
         this.cName = funcName;
         this.body = body;
@@ -84,7 +87,12 @@ public class Function extends Reference {
 
         body.append("assert(args != NULL && kwargs != NULL);\n\n");
 
-        body.append("__MPyGetArgsState argHelper = __mpy_args_init(\"" + name + "\", args, kwargs, " + positionalArgs.size() + ");\n");
+        body.append(
+                "__MPyGetArgsState argHelper = __mpy_args_init(\""
+                        + name
+                        + "\", args, kwargs, "
+                        + positionalArgs.size()
+                        + ");\n");
 
         for (Argument arg : positionalArgs) {
             body.append(arg.buildArgExtraction());
@@ -93,7 +101,8 @@ public class Function extends Reference {
         if (!receivesPackedPositionalArgs && !receivesPackedKeywordArgs) {
             body.append("__mpy_args_finish(&argHelper);\n");
         } else {
-            // FIXME leave out check for unused arguments only partially (not implemented on the c side too)
+            // FIXME leave out check for unused arguments only partially (not implemented on the c
+            // side too)
             body.append("__mpy_obj_ref_dec(args);\n");
             body.append("__mpy_obj_ref_dec(kwargs);\n");
         }
@@ -124,8 +133,11 @@ public class Function extends Reference {
         body.append("}\n");
         body.append("return __mpy_obj_return(retValue);");
 
-        declaration.append(body.toString().lines().map(string -> "\t" + string + "\n").collect(
-                Collectors.joining()));
+        declaration.append(
+                body.toString()
+                        .lines()
+                        .map(string -> "\t" + string + "\n")
+                        .collect(Collectors.joining()));
         declaration.append("}\n");
 
         return declaration.toString();
@@ -146,8 +158,13 @@ public class Function extends Reference {
      * @return Initialisation code for this function's mini-python object.
      */
     public String buildInitialisation() {
-        return name + " = __mpy_obj_init_func(&func_" + cName +  ");\n" +
-                "__mpy_obj_ref_inc(" + name + ");\n";
+        return name
+                + " = __mpy_obj_init_func(&func_"
+                + cName
+                + ");\n"
+                + "__mpy_obj_ref_inc("
+                + name
+                + ");\n";
     }
 
     /**
@@ -158,5 +175,4 @@ public class Function extends Reference {
     public String buildRefDec() {
         return "__mpy_obj_ref_dec(" + name + ");\n";
     }
-
 }

@@ -1,3 +1,4 @@
+/* (C)2024 */
 package CBuilder.objects;
 
 import CBuilder.Expression;
@@ -31,6 +32,12 @@ public class AttributeAssignment implements Statement {
 
     @Override
     public String buildStatement() {
-        return "__mpy_obj_set_attr(" + attribute.buildObject() + ", " + attribute.buildName() + ", " +  value.buildExpression() + ");";
+        return "__mpy_obj_set_attr("
+                + attribute.buildObject()
+                + ", "
+                + attribute.buildName()
+                + ", "
+                + value.buildExpression()
+                + ");";
     }
 }

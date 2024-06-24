@@ -1,4 +1,9 @@
+/* (C)2024 */
 package Systemtests.LanguageFeatures.DeclarationAndAssignment;
+
+import static Systemtests.TestHelpers.getProgramOutput;
+import static Systemtests.TestHelpers.makeProgram;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import CBuilder.Expression;
 import CBuilder.ProgramBuilder;
@@ -13,35 +18,32 @@ import CBuilder.objects.functions.Argument;
 import CBuilder.objects.functions.Function;
 import CBuilder.variables.Assignment;
 import CBuilder.variables.VariableDeclaration;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.stream.Stream;
-
-import static Systemtests.TestHelpers.getProgramOutput;
-import static Systemtests.TestHelpers.makeProgram;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class TestDeclarationAndAssignment {
     String testClass = '[' + this.getClass().getSimpleName().toUpperCase() + "]\n";
 
-    private static Stream<Arguments> source_literals(){
+    private static Stream<Arguments> source_literals() {
         return Stream.of(
-            Arguments.of(new IntLiteral(133), "133\n"),
-            Arguments.of(new StringLiteral("stringVal"), "stringVal\n"),
-            Arguments.of(new BoolLiteral(true), "True\n"));
+                Arguments.of(new IntLiteral(133), "133\n"),
+                Arguments.of(new StringLiteral("stringVal"), "stringVal\n"),
+                Arguments.of(new BoolLiteral(true), "True\n"));
     }
 
     @Test
-    void declaration_and_assignment(@TempDir Path workDirectory) throws IOException, InterruptedException {
+    void declaration_and_assignment(@TempDir Path workDirectory)
+            throws IOException, InterruptedException {
         String result = "";
-        String expected = """
+        String expected =
+                """
                 133
                 133
                 133
@@ -56,16 +58,16 @@ public class TestDeclarationAndAssignment {
 
         System.out.println(result);
 
-        //Thread.sleep(5000);
+        // Thread.sleep(5000);
         assertEquals(expected, result);
 
-        //After Test
+        // After Test
     }
-
 
     @ParameterizedTest
     @MethodSource("source_literals")
-    void assignment_literal(Literal literal, String expected, @TempDir Path workDirectory) throws IOException, InterruptedException {
+    void assignment_literal(Literal literal, String expected, @TempDir Path workDirectory)
+            throws IOException, InterruptedException {
         String result = "";
 
         generate_assignment_literal(workDirectory, literal);
@@ -76,14 +78,15 @@ public class TestDeclarationAndAssignment {
 
         System.out.println(result);
 
-        //Thread.sleep(5000);
+        // Thread.sleep(5000);
         assertEquals(expected, result);
 
-        //After Test
+        // After Test
     }
 
     @Test
-    void assignment_reference(@TempDir Path workDirectory) throws IOException, InterruptedException {
+    void assignment_reference(@TempDir Path workDirectory)
+            throws IOException, InterruptedException {
         String result = "";
         String expected = "133\n";
 
@@ -95,14 +98,15 @@ public class TestDeclarationAndAssignment {
 
         System.out.println(result);
 
-        //Thread.sleep(5000);
+        // Thread.sleep(5000);
         assertEquals(expected, result);
 
-        //After Test
+        // After Test
     }
 
     @Test
-    void assignment_function_call(@TempDir Path workDirectory) throws IOException, InterruptedException {
+    void assignment_function_call(@TempDir Path workDirectory)
+            throws IOException, InterruptedException {
         String result = "";
         String expected = "133\n";
 
@@ -114,10 +118,10 @@ public class TestDeclarationAndAssignment {
 
         System.out.println(result);
 
-        //Thread.sleep(5000);
+        // Thread.sleep(5000);
         assertEquals(expected, result);
 
-        //After Test
+        // After Test
     }
 
     @Test
@@ -133,10 +137,10 @@ public class TestDeclarationAndAssignment {
 
         System.out.println(result);
 
-        //Thread.sleep(5000);
+        // Thread.sleep(5000);
         assertEquals(expected, result);
 
-        //After Test
+        // After Test
     }
 
     /**
@@ -165,40 +169,43 @@ public class TestDeclarationAndAssignment {
         builder.addVariable(new VariableDeclaration("a"));
         builder.addStatement(new Assignment(new Reference("a"), new IntLiteral(133))); // a = 133
 
-        builder.addVariable(new VariableDeclaration("b"));                                   // b
-        builder.addStatement(new Assignment(new Reference("b"), new Reference("a")));  // b = a
+        builder.addVariable(new VariableDeclaration("b")); // b
+        builder.addStatement(new Assignment(new Reference("b"), new Reference("a"))); // b = a
 
         builder.addVariable(new VariableDeclaration("c"));
-        builder.addStatement(new Assignment(new Reference("c"),
-            new Call(new Reference("print"),
-                List.of(new Expression[]{
-                    new Reference("a")
-                }))));                                                                             // c = print(a)
+        builder.addStatement(
+                new Assignment(
+                        new Reference("c"),
+                        new Call(
+                                new Reference("print"),
+                                List.of(new Expression[] {new Reference("a")})))); // c = print(a)
 
         builder.addVariable(new VariableDeclaration("d"));
-        builder.addFunction(new Function("printA", List.of(new Statement[]{
-            new Call(new Reference("print"),
-                List.of(new Expression[]{
-                    new Reference("a")
-                }))
-        }), List.of(new Argument[]{
-            new Argument("a", 0)
-        }), List.of())); //d def printA(a): printa(a)
+        builder.addFunction(
+                new Function(
+                        "printA",
+                        List.of(
+                                new Statement[] {
+                                    new Call(
+                                            new Reference("print"),
+                                            List.of(new Expression[] {new Reference("a")}))
+                                }),
+                        List.of(new Argument[] {new Argument("a", 0)}),
+                        List.of())); // d def printA(a): printa(a)
 
-        builder.addStatement(new Assignment(new Reference("d"), new Reference("printA")));  // d = printA
+        builder.addStatement(
+                new Assignment(new Reference("d"), new Reference("printA"))); // d = printA
 
+        builder.addStatement(
+                new Call(new Reference("print"), List.of(new Expression[] {new Reference("a")})));
 
-        builder.addStatement(new Call(new Reference("print"), List.of(new Expression[]{
-            new Reference("a")
-        })));
+        builder.addStatement(
+                new Call(new Reference("print"), List.of(new Expression[] {new Reference("b")})));
 
-        builder.addStatement(new Call(new Reference("print"), List.of(new Expression[]{
-            new Reference("b")
-        })));
-
-        builder.addStatement(new Call(new Reference("d"), List.of(new Expression[]{
-            new Reference("a")
-        })));                                                                                   // d(a)
+        builder.addStatement(
+                new Call(
+                        new Reference("d"),
+                        List.of(new Expression[] {new Reference("a")}))); // d(a)
 
         builder.writeProgram(output);
     }
@@ -215,9 +222,8 @@ public class TestDeclarationAndAssignment {
         builder.addVariable(new VariableDeclaration("a"));
         builder.addStatement(new Assignment(new Reference("a"), literal));
 
-        builder.addStatement(new Call(new Reference("print"), List.of(new Expression[]{
-            new Reference("a")
-        })));
+        builder.addStatement(
+                new Call(new Reference("print"), List.of(new Expression[] {new Reference("a")})));
 
         builder.writeProgram(output);
     }
@@ -238,9 +244,8 @@ public class TestDeclarationAndAssignment {
         builder.addVariable(new VariableDeclaration("b"));
         builder.addStatement(new Assignment(new Reference("b"), new Reference("a")));
 
-        builder.addStatement(new Call(new Reference("print"), List.of(new Expression[]{
-            new Reference("b")
-        })));
+        builder.addStatement(
+                new Call(new Reference("print"), List.of(new Expression[] {new Reference("b")})));
 
         builder.writeProgram(output);
     }
@@ -263,19 +268,21 @@ public class TestDeclarationAndAssignment {
         builder.addStatement(new Assignment(new Reference("a"), new IntLiteral(133)));
 
         builder.addVariable(new VariableDeclaration("b"));
-        builder.addFunction(new Function("printA", List.of(new Statement[]{
-            new Call(new Reference("print"),
-                List.of(new Expression[]{
-                    new Reference("a")
-                }))
-        }), List.of(new Argument[]{
-            new Argument("a", 0)
-        }), List.of()));
+        builder.addFunction(
+                new Function(
+                        "printA",
+                        List.of(
+                                new Statement[] {
+                                    new Call(
+                                            new Reference("print"),
+                                            List.of(new Expression[] {new Reference("a")}))
+                                }),
+                        List.of(new Argument[] {new Argument("a", 0)}),
+                        List.of()));
 
         builder.addStatement(new Assignment(new Reference("b"), new Reference("printA")));
-        builder.addStatement(new Call(new Reference("b"), List.of(new Expression[]{
-            new Reference("a")
-        })));
+        builder.addStatement(
+                new Call(new Reference("b"), List.of(new Expression[] {new Reference("a")})));
 
         builder.writeProgram(output);
     }

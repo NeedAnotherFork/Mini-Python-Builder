@@ -1,22 +1,22 @@
+/* (C)2024 */
 package CBuilder.literals;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class TestBoolLiteral {
     String testClass = "[BOOLLITERAL]\n";
 
-    private static Stream<Boolean> sources(){
+    private static Stream<Boolean> sources() {
         return Stream.of(true, false);
     }
 
     @ParameterizedTest
     @MethodSource("sources")
-    void constructor(boolean b_value){
+    void constructor(boolean b_value) {
 
         BoolLiteral boolL = new BoolLiteral(b_value);
 
@@ -27,8 +27,8 @@ public class TestBoolLiteral {
 
     @ParameterizedTest
     @MethodSource("sources")
-    void build_expression(boolean b_value){
-        String expected = "__mpy_obj_init_boolean("+b_value+")";
+    void build_expression(boolean b_value) {
+        String expected = "__mpy_obj_init_boolean(" + b_value + ")";
 
         BoolLiteral boolL = new BoolLiteral(b_value);
 
@@ -39,8 +39,8 @@ public class TestBoolLiteral {
 
     @ParameterizedTest
     @MethodSource("sources")
-    void build_statement(boolean b_value){
-        String expected = "__mpy_obj_init_boolean("+b_value+");\n";
+    void build_statement(boolean b_value) {
+        String expected = "__mpy_obj_init_boolean(" + b_value + ");\n";
 
         BoolLiteral boolL = new BoolLiteral(b_value);
 

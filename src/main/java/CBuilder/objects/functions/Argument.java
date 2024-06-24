@@ -1,3 +1,4 @@
+/* (C)2024 */
 package CBuilder.objects.functions;
 
 /**
@@ -32,7 +33,13 @@ public class Argument {
      * @return Code extracting this argument from a function's argument extractor.
      */
     public String buildArgExtraction() {
-        return "__MPyObj *" + name + " = __mpy_args_get_positional(&argHelper, " + position + ", \"" + name + "\");\n";
+        return "__MPyObj *"
+                + name
+                + " = __mpy_args_get_positional(&argHelper, "
+                + position
+                + ", \""
+                + name
+                + "\");\n";
     }
 
     /**
@@ -43,5 +50,4 @@ public class Argument {
     public String buildArgCleanup() {
         return "__mpy_obj_ref_dec(" + name + ");\n";
     }
-
 }

@@ -1,22 +1,22 @@
+/* (C)2024 */
 package CBuilder.literals;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class TestIntLiteral {
     String testClass = "[INTLITERAL]\n";
 
-    private static Stream<Integer> sources(){
+    private static Stream<Integer> sources() {
         return Stream.of(Integer.MAX_VALUE, Integer.MIN_VALUE);
     }
 
     @ParameterizedTest
     @MethodSource("sources")
-    void constructor(Integer i_value){
+    void constructor(Integer i_value) {
         long expected = i_value;
 
         IntLiteral intL = new IntLiteral(i_value);
@@ -28,8 +28,8 @@ public class TestIntLiteral {
 
     @ParameterizedTest
     @MethodSource("sources")
-    void build_expression(Integer i_value){
-        String expected = "__mpy_obj_init_int("+i_value+")";
+    void build_expression(Integer i_value) {
+        String expected = "__mpy_obj_init_int(" + i_value + ")";
 
         IntLiteral intL = new IntLiteral(i_value);
 
@@ -40,8 +40,8 @@ public class TestIntLiteral {
 
     @ParameterizedTest
     @MethodSource("sources")
-    void build_statement(Integer i_value){
-        String expected = "__mpy_obj_init_int("+i_value+");\n";
+    void build_statement(Integer i_value) {
+        String expected = "__mpy_obj_init_int(" + i_value + ");\n";
 
         IntLiteral intL = new IntLiteral(i_value);
 

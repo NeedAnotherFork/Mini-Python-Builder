@@ -1,3 +1,4 @@
+/* (C)2024 */
 package CBuilder;
 
 /**
@@ -11,5 +12,4 @@ public interface Expression extends Statement {
      * @return A String with the c-code that evaluates to the containing MiniPython object.
      */
     String buildExpression();
-
 }

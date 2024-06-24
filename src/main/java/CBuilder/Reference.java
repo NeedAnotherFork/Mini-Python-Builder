@@ -1,3 +1,4 @@
+/* (C)2024 */
 package CBuilder;
 
 /**
@@ -24,7 +25,9 @@ public class Reference implements Expression {
      *
      * @return The name of the reference.
      */
-    public String getName() { return this.name; }
+    public String getName() {
+        return this.name;
+    }
 
     @Override
     public String buildExpression() {
@@ -35,5 +38,4 @@ public class Reference implements Expression {
     public String buildStatement() {
         return name + ";\n";
     }
-
 }

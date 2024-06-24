@@ -1,17 +1,17 @@
+/* (C)2024 */
 package CBuilder.variables;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Snapshot 22.02.2024
  */
 public class TestVariableDeclaration {
-    private static Stream<String> sources(){
+    private static Stream<String> sources() {
         return Stream.of("someVar", "anotherOne", "", "'");
     }
 
@@ -21,9 +21,13 @@ public class TestVariableDeclaration {
      */
     @ParameterizedTest
     @MethodSource("sources")
-    void build_initialisation_parameterized(String var_name){
-        String expected = var_name + " = __mpy_obj_init_object();\n" +
-            "__mpy_obj_ref_inc("+var_name+");\n";
+    void build_initialisation_parameterized(String var_name) {
+        String expected =
+                var_name
+                        + " = __mpy_obj_init_object();\n"
+                        + "__mpy_obj_ref_inc("
+                        + var_name
+                        + ");\n";
 
         VariableDeclaration var = new VariableDeclaration(var_name);
 
@@ -40,9 +44,14 @@ public class TestVariableDeclaration {
      */
     @ParameterizedTest
     @MethodSource("sources")
-    void build_true_parameterized(String var_name){
-        String expected = "__MPyObj *"+var_name+" = __mpy_obj_init_object();\n" +
-            "__mpy_obj_ref_inc("+var_name+");\n";
+    void build_true_parameterized(String var_name) {
+        String expected =
+                "__MPyObj *"
+                        + var_name
+                        + " = __mpy_obj_init_object();\n"
+                        + "__mpy_obj_ref_inc("
+                        + var_name
+                        + ");\n";
 
         VariableDeclaration var = new VariableDeclaration(var_name);
 
@@ -59,8 +68,8 @@ public class TestVariableDeclaration {
      */
     @ParameterizedTest
     @MethodSource("sources")
-    void build_false_parameterized(String var_name){
-        String expected = "__MPyObj *"+var_name+";\n";
+    void build_false_parameterized(String var_name) {
+        String expected = "__MPyObj *" + var_name + ";\n";
 
         VariableDeclaration var = new VariableDeclaration(var_name);
 
@@ -77,8 +86,8 @@ public class TestVariableDeclaration {
      */
     @ParameterizedTest
     @MethodSource("sources")
-    void build_ref_dec_parameterized(String var_name){
-        String expected = "__mpy_obj_ref_dec("+var_name+");\n";
+    void build_ref_dec_parameterized(String var_name) {
+        String expected = "__mpy_obj_ref_dec(" + var_name + ");\n";
 
         VariableDeclaration var = new VariableDeclaration(var_name);
 

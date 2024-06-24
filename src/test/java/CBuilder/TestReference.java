@@ -1,22 +1,22 @@
+/* (C)2024 */
 package CBuilder;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class TestReference {
     String testClass = "[REFERENCE]\n";
 
-    private static Stream<String> sources(){
+    private static Stream<String> sources() {
         return Stream.of("ref1", "ref2");
     }
 
     @ParameterizedTest
     @MethodSource("sources")
-    void constructor(String name){
+    void constructor(String name) {
         Reference ref = new Reference(name);
 
         System.out.println(testClass + ref.getName());
@@ -26,7 +26,7 @@ public class TestReference {
 
     @ParameterizedTest
     @MethodSource("sources")
-    void build_expression(String name){
+    void build_expression(String name) {
         Reference ref = new Reference(name);
 
         System.out.println(testClass + ref.buildExpression());
@@ -36,11 +36,11 @@ public class TestReference {
 
     @ParameterizedTest
     @MethodSource("sources")
-    void build_statement(String name){
+    void build_statement(String name) {
         Reference ref = new Reference(name);
 
         System.out.println(testClass + ref.buildStatement());
 
-        assertEquals(name+";\n", ref.buildStatement());
+        assertEquals(name + ";\n", ref.buildStatement());
     }
 }

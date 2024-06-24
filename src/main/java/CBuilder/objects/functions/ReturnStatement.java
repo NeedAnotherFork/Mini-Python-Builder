@@ -1,3 +1,4 @@
+/* (C)2024 */
 package CBuilder.objects.functions;
 
 import CBuilder.Expression;
@@ -24,7 +25,6 @@ public class ReturnStatement implements Statement {
         // Note: retVal and goto ret depend on the implementation of Function#buildCFunction
         // I'm sorry for all the hidden interdependencies in this stuff, but I have no idea
         // how this could have been solved better
-        return "retValue = " + returnValue.buildExpression() + ";\n" +
-                "goto ret;\n";
+        return "retValue = " + returnValue.buildExpression() + ";\n" + "goto ret;\n";
     }
 }

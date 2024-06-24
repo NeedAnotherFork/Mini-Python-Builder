@@ -1,3 +1,4 @@
+/* (C)2024 */
 package CBuilder;
 
 /**
@@ -11,5 +12,4 @@ public interface Statement {
      * @return A String which represents the c-code of the statement.
      */
     String buildStatement();
-
 }

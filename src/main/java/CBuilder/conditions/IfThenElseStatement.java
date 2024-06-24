@@ -1,10 +1,10 @@
+/* (C)2024 */
 package CBuilder.conditions;
 
 import CBuilder.Statement;
 import CBuilder.conditions.conditionalStatement.ElifStatement;
 import CBuilder.conditions.conditionalStatement.ElseStatement;
 import CBuilder.conditions.conditionalStatement.IfStatement;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +35,10 @@ public class IfThenElseStatement implements Statement {
      * @param elifStatements An optional list of elif statements.
      * @param elseStatement An optional else statement.
      */
-    public IfThenElseStatement(IfStatement ifStatement, Optional<List<ElifStatement>> elifStatements, Optional<ElseStatement> elseStatement) {
+    public IfThenElseStatement(
+            IfStatement ifStatement,
+            Optional<List<ElifStatement>> elifStatements,
+            Optional<ElseStatement> elseStatement) {
         this.ifStatement = ifStatement;
         this.elifStatements = elifStatements;
         this.elseStatement = elseStatement;

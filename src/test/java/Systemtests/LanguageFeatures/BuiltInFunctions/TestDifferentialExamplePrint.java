@@ -1,4 +1,9 @@
+/* (C)2024 */
 package Systemtests.LanguageFeatures.BuiltInFunctions;
+
+import static Systemtests.TestHelpers.getProgramOutput;
+import static Systemtests.TestHelpers.makeProgram;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import CBuilder.Expression;
 import CBuilder.ProgramBuilder;
@@ -7,16 +12,11 @@ import CBuilder.literals.IntLiteral;
 import CBuilder.objects.Call;
 import CBuilder.variables.Assignment;
 import CBuilder.variables.VariableDeclaration;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
 import java.io.*;
 import java.nio.file.Path;
 import java.util.List;
-
-import static Systemtests.TestHelpers.getProgramOutput;
-import static Systemtests.TestHelpers.makeProgram;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 public class TestDifferentialExamplePrint {
 
@@ -32,14 +32,16 @@ public class TestDifferentialExamplePrint {
 
         System.out.println(result);
 
-        ProcessBuilder builder = new ProcessBuilder("bash", "-c", "printf 'a=133\nprint(a)' >> test.py ; python3 test.py");
+        ProcessBuilder builder =
+                new ProcessBuilder(
+                        "bash", "-c", "printf 'a=133\nprint(a)' >> test.py ; python3 test.py");
         builder.directory(workDirectory.toFile());
-        //builder.inheritIO();
+        // builder.inheritIO();
 
         Process p = builder.start();
 
         String python3Output = "";
-        String line; //https://github.com/actions/runner-images
+        String line; // https://github.com/actions/runner-images
 
         InputStream processStdOutput = p.getInputStream();
         Reader r = new InputStreamReader(processStdOutput);
@@ -56,10 +58,10 @@ public class TestDifferentialExamplePrint {
 
         System.out.println(python3Output);
 
-        //Thread.sleep(5000);
+        // Thread.sleep(5000);
         assertEquals(python3Output, result);
 
-        //After Test
+        // After Test
     }
 
     /**
@@ -73,9 +75,8 @@ public class TestDifferentialExamplePrint {
         builder.addVariable(new VariableDeclaration("a"));
         builder.addStatement(new Assignment(new Reference("a"), new IntLiteral(133)));
 
-        builder.addStatement(new Call(new Reference("print"), List.of(new Expression[]{
-            new Reference("a")
-        })));
+        builder.addStatement(
+                new Call(new Reference("print"), List.of(new Expression[] {new Reference("a")})));
 
         builder.writeProgram(output);
     }

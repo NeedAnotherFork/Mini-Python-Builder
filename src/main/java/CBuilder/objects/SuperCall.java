@@ -1,12 +1,10 @@
+/* (C)2024 */
 package CBuilder.objects;
 
 import CBuilder.Expression;
 import CBuilder.Reference;
-import CBuilder.Statement;
-
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Create a new super call for a class definition.
@@ -17,7 +15,8 @@ public class SuperCall extends Call {
 
     // addAll does not return `this`,
     // and `super()` needs to be called first...
-    // so we need an extra method simply to be able to have a default element in the front of the list....
+    // so we need an extra method simply to be able to have a default element in the front of the
+    // list....
     private static <T> List<T> chainedAddAll(List<T> thisInstance, List<T> appended) {
         // thisInstance may very well be immutable (who needs rust's ownership model anyway)...
         List<T> result = new LinkedList<>();

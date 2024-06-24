@@ -1,22 +1,22 @@
+/* (C)2024 */
 package CBuilder.literals;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class TestStringLiteral {
     String testClass = "[STRINGLITERAL]\n";
 
-    private static Stream<String> sources(){
+    private static Stream<String> sources() {
         return Stream.of("true", "false");
     }
 
     @ParameterizedTest
     @MethodSource("sources")
-    void constructor(String name){
+    void constructor(String name) {
 
         StringLiteral stringL = new StringLiteral(name);
 
@@ -27,8 +27,8 @@ public class TestStringLiteral {
 
     @ParameterizedTest
     @MethodSource("sources")
-    void build_expression(String name){
-        String expected = "__mpy_obj_init_str_static(\""+name+"\")";
+    void build_expression(String name) {
+        String expected = "__mpy_obj_init_str_static(\"" + name + "\")";
 
         StringLiteral stringL = new StringLiteral(name);
 
@@ -39,8 +39,8 @@ public class TestStringLiteral {
 
     @ParameterizedTest
     @MethodSource("sources")
-    void build_statement(String name){
-        String expected = "__mpy_obj_ref_dec__mpy_obj_init_str_static(\""+name+"\"));\n";
+    void build_statement(String name) {
+        String expected = "__mpy_obj_ref_dec__mpy_obj_init_str_static(\"" + name + "\"));\n";
 
         StringLiteral stringL = new StringLiteral(name);
 

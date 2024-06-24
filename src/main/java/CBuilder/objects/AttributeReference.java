@@ -1,7 +1,7 @@
+/* (C)2024 */
 package CBuilder.objects;
 
 import CBuilder.Expression;
-import CBuilder.Reference;
 
 /**
  * Mini-Python attribute access, i. e. `a.b`.
@@ -68,5 +68,7 @@ public class AttributeReference implements Expression {
      *
      * @return The name of the attribute.
      */
-    public String getName() { return this.name; }
+    public String getName() {
+        return this.name;
+    }
 }

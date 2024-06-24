@@ -1,3 +1,4 @@
+/* (C)2024 */
 package CBuilder.literals;
 
 /**
@@ -28,5 +29,4 @@ public class BoolLiteral implements Literal {
     public String buildStatement() {
         return buildExpression() + ";\n";
     }
-
 }

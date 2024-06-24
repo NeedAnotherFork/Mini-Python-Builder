@@ -1,12 +1,11 @@
+/* (C)2024 */
 package CBuilder.conditions.conditionalStatement;
 
 import CBuilder.Expression;
 import CBuilder.Statement;
 import CBuilder.objects.AttributeReference;
 import CBuilder.objects.Call;
-
 import java.util.List;
-import java.util.Map;
 
 /**
  * Internal base for all conditional control structures that consist of a condition and a body following that condition.
@@ -77,5 +76,7 @@ abstract class ConditionalStatement implements Statement {
     }
 
     @Override
-    public String buildStatement() { return null; }
+    public String buildStatement() {
+        return null;
+    }
 }

@@ -1,3 +1,4 @@
+/* (C)2024 */
 package CBuilder.variables;
 
 /**
@@ -27,8 +28,7 @@ public class VariableDeclaration {
      */
     private String initialisation() {
         // FIXME: init none instead of object
-        return " = __mpy_obj_init_object();\n" +
-                "__mpy_obj_ref_inc(" + name + ")";
+        return " = __mpy_obj_init_object();\n" + "__mpy_obj_ref_inc(" + name + ")";
     }
 
     /**
@@ -62,5 +62,4 @@ public class VariableDeclaration {
     public String buildRefDec() {
         return "__mpy_obj_ref_dec(" + name + ");\n";
     }
-
 }

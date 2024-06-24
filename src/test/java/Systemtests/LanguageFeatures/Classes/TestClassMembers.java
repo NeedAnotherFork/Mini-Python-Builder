@@ -1,4 +1,9 @@
+/* (C)2024 */
 package Systemtests.LanguageFeatures.Classes;
+
+import static Systemtests.TestHelpers.getProgramOutput;
+import static Systemtests.TestHelpers.makeProgram;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import CBuilder.Expression;
 import CBuilder.ProgramBuilder;
@@ -11,17 +16,12 @@ import CBuilder.objects.functions.Function;
 import CBuilder.objects.functions.ReturnStatement;
 import CBuilder.variables.Assignment;
 import CBuilder.variables.VariableDeclaration;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-
-import static Systemtests.TestHelpers.getProgramOutput;
-import static Systemtests.TestHelpers.makeProgram;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 public class TestClassMembers {
     String testClass = '[' + this.getClass().getSimpleName().toUpperCase() + "]\n";
@@ -30,19 +30,49 @@ public class TestClassMembers {
     void getter_setter(@TempDir Path workDirectory) throws IOException, InterruptedException {
         String result = "";
 
-        generate_getter_and_setter(workDirectory,
-            new MPyClass("ClassB", new Reference("__MPyType_Object"),
-                List.of(
-                    new Function("__init__", List.of(
-                        new SuperCall(List.of()),
-                        new Call(new Reference("print"), List.of(new Expression[]{new StringLiteral("[ClassB] Print from __init__")})),
-                        new AttributeAssignment(new AttributeReference("x", new Reference("self")), new Reference("val"))), List.of(new Argument("self", 0), new Argument("val", 1)), List.of()),
-                new Function("getX", List.of(new ReturnStatement(new AttributeReference("x", new Reference("self")))), List.of(new Argument("self", 0)),
-                    List.of()),
-                new Function("setX", List.of(new AttributeAssignment(new AttributeReference("x", new Reference("self")), new Reference("newVal"))), List.of(new Argument("self", 0), new Argument("newVal", 1)),
-                    List.of())),
-                Map.of()),
-            List.of(new IntLiteral(133)));
+        generate_getter_and_setter(
+                workDirectory,
+                new MPyClass(
+                        "ClassB",
+                        new Reference("__MPyType_Object"),
+                        List.of(
+                                new Function(
+                                        "__init__",
+                                        List.of(
+                                                new SuperCall(List.of()),
+                                                new Call(
+                                                        new Reference("print"),
+                                                        List.of(
+                                                                new Expression[] {
+                                                                    new StringLiteral(
+                                                                            "[ClassB] Print from"
+                                                                                    + " __init__")
+                                                                })),
+                                                new AttributeAssignment(
+                                                        new AttributeReference(
+                                                                "x", new Reference("self")),
+                                                        new Reference("val"))),
+                                        List.of(new Argument("self", 0), new Argument("val", 1)),
+                                        List.of()),
+                                new Function(
+                                        "getX",
+                                        List.of(
+                                                new ReturnStatement(
+                                                        new AttributeReference(
+                                                                "x", new Reference("self")))),
+                                        List.of(new Argument("self", 0)),
+                                        List.of()),
+                                new Function(
+                                        "setX",
+                                        List.of(
+                                                new AttributeAssignment(
+                                                        new AttributeReference(
+                                                                "x", new Reference("self")),
+                                                        new Reference("newVal"))),
+                                        List.of(new Argument("self", 0), new Argument("newVal", 1)),
+                                        List.of())),
+                        Map.of()),
+                List.of(new IntLiteral(133)));
 
         makeProgram(workDirectory);
 
@@ -50,7 +80,7 @@ public class TestClassMembers {
 
         System.out.println(testClass + " Result : " + result);
 
-        //Thread.sleep(5000);
+        // Thread.sleep(5000);
         assertEquals("[ClassB] Print from __init__\n23\n", result);
     }
 
@@ -75,7 +105,6 @@ public class TestClassMembers {
      * <br> x.setX(23)
      * <br> print(x.getX())
      */
-
     void generate_getter_and_setter(Path output, MPyClass mpyClass, List<Expression> initArgs) {
         ProgramBuilder builder = new ProgramBuilder();
 
@@ -83,11 +112,24 @@ public class TestClassMembers {
 
         builder.addVariable(new VariableDeclaration("x"));
 
-        builder.addStatement(new Assignment(new Reference("x"), new Call(new Reference(mpyClass.getName()), initArgs)));
+        builder.addStatement(
+                new Assignment(
+                        new Reference("x"), new Call(new Reference(mpyClass.getName()), initArgs)));
 
-        builder.addStatement(new Call(new AttributeReference("setX", new Reference("x")), List.of(new IntLiteral(23))));
+        builder.addStatement(
+                new Call(
+                        new AttributeReference("setX", new Reference("x")),
+                        List.of(new IntLiteral(23))));
 
-        builder.addStatement(new Call(new Reference("print"), List.of(new Expression[]{new Call(new AttributeReference("getX", new Reference("x")), List.of())})));
+        builder.addStatement(
+                new Call(
+                        new Reference("print"),
+                        List.of(
+                                new Expression[] {
+                                    new Call(
+                                            new AttributeReference("getX", new Reference("x")),
+                                            List.of())
+                                })));
 
         builder.writeProgram(output);
     }
@@ -96,7 +138,40 @@ public class TestClassMembers {
     void getter(@TempDir Path workDirectory) throws IOException, InterruptedException {
         String result = "";
 
-        generate_getter(workDirectory, new MPyClass("ClassA", new Reference("__MPyType_Object"), List.of(new Function("__init__", List.of(new SuperCall(List.of()), new Call(new Reference("print"), List.of(new Expression[]{new StringLiteral("[ClassA] Print from __init__")})), new AttributeAssignment(new AttributeReference("x", new Reference("self")), new Reference("val"))), List.of(new Argument("self", 0), new Argument("val", 1)), List.of()), new Function("getX", List.of(new ReturnStatement(new AttributeReference("x", new Reference("self")))), List.of(new Argument("self", 0)), List.of())), Map.of()), List.of(new IntLiteral(133)));
+        generate_getter(
+                workDirectory,
+                new MPyClass(
+                        "ClassA",
+                        new Reference("__MPyType_Object"),
+                        List.of(
+                                new Function(
+                                        "__init__",
+                                        List.of(
+                                                new SuperCall(List.of()),
+                                                new Call(
+                                                        new Reference("print"),
+                                                        List.of(
+                                                                new Expression[] {
+                                                                    new StringLiteral(
+                                                                            "[ClassA] Print from"
+                                                                                    + " __init__")
+                                                                })),
+                                                new AttributeAssignment(
+                                                        new AttributeReference(
+                                                                "x", new Reference("self")),
+                                                        new Reference("val"))),
+                                        List.of(new Argument("self", 0), new Argument("val", 1)),
+                                        List.of()),
+                                new Function(
+                                        "getX",
+                                        List.of(
+                                                new ReturnStatement(
+                                                        new AttributeReference(
+                                                                "x", new Reference("self")))),
+                                        List.of(new Argument("self", 0)),
+                                        List.of())),
+                        Map.of()),
+                List.of(new IntLiteral(133)));
 
         makeProgram(workDirectory);
 
@@ -104,7 +179,7 @@ public class TestClassMembers {
 
         System.out.println(testClass + " Result : " + result);
 
-        //Thread.sleep(5000);
+        // Thread.sleep(5000);
         assertEquals("[ClassA] Print from __init__\n133\n", result);
     }
 
@@ -115,9 +190,19 @@ public class TestClassMembers {
 
         builder.addVariable(new VariableDeclaration("x"));
 
-        builder.addStatement(new Assignment(new Reference("x"), new Call(new Reference(mpyClass.getName()), initArgs)));
+        builder.addStatement(
+                new Assignment(
+                        new Reference("x"), new Call(new Reference(mpyClass.getName()), initArgs)));
 
-        builder.addStatement(new Call(new Reference("print"), List.of(new Expression[]{new Call(new AttributeReference("getX", new Reference("x")), List.of())})));
+        builder.addStatement(
+                new Call(
+                        new Reference("print"),
+                        List.of(
+                                new Expression[] {
+                                    new Call(
+                                            new AttributeReference("getX", new Reference("x")),
+                                            List.of())
+                                })));
 
         builder.writeProgram(output);
     }
