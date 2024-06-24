@@ -13,8 +13,12 @@ MKDIR_P := mkdir -p
 export SRCDIR := $(realpath ./src)
 export INCLUDEDIR := $(realpath ./include)
 export TESTDIR := $(realpath ./test)
+export INCLUDEDIRTEST := $(realpath ./test/include)
+export SRCDIRTEST := $(realpath ./test/src)
 
-export C_FILES := $(wildcard ./src/*.c ./src/*/*.c* ./src/*/*/*.c*)
+export C_FILES_TEST := $(wildcard ./test/src/test/*.c ./test/src/test/*/*.c* ./src/*.c ./src/*/*.c*)
+export C_FILES_TEST := $(filter-out ./src/program.c, $(C_FILES_TEST))
+export C_FILES := $(wildcard ./src/*.c ./src/*/*.c*)
 export C_FILES := $(filter-out ./src/program.c, $(C_FILES))
 export DOXYFILE := $(realpath ./Doxyfile)
 
