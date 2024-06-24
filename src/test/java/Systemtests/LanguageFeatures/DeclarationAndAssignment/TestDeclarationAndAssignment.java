@@ -56,7 +56,7 @@ public class TestDeclarationAndAssignment {
 
         result = getProgramOutput(workDirectory);
 
-        System.out.println(result);
+        System.out.println(testClass + result);
 
         // Thread.sleep(5000);
         assertEquals(expected, result);
@@ -76,7 +76,7 @@ public class TestDeclarationAndAssignment {
 
         result = getProgramOutput(workDirectory);
 
-        System.out.println(result);
+        System.out.println(testClass + result);
 
         // Thread.sleep(5000);
         assertEquals(expected, result);
@@ -96,7 +96,7 @@ public class TestDeclarationAndAssignment {
 
         result = getProgramOutput(workDirectory);
 
-        System.out.println(result);
+        System.out.println(testClass + result);
 
         // Thread.sleep(5000);
         assertEquals(expected, result);
@@ -116,7 +116,7 @@ public class TestDeclarationAndAssignment {
 
         result = getProgramOutput(workDirectory);
 
-        System.out.println(result);
+        System.out.println(testClass + result);
 
         // Thread.sleep(5000);
         assertEquals(expected, result);
@@ -135,7 +135,7 @@ public class TestDeclarationAndAssignment {
 
         result = getProgramOutput(workDirectory);
 
-        System.out.println(result);
+        System.out.println(testClass + result);
 
         // Thread.sleep(5000);
         assertEquals(expected, result);
